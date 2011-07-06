@@ -22,11 +22,11 @@
 ##in any direction (up, down, left, right, or diagonally) in the 2020 grid?
 ##
 from functools import reduce
-def lprod(l):
-    return reduce(lambda x,y:x*y, l)
+def lprod(ls):
+    return reduce(lambda x,y:x*y, ls)
+
 def euler11():
-    n=5
-    maxprod = 0
+
     g='08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08 \
     49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00 \
     81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65 \
@@ -49,14 +49,28 @@ def euler11():
     01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48' 
 
     l = [int(e) for e in g.split()]
+    n=4
+    maxprod = 0
+    rowlen = int(len(l)**.5)
+    print (rowlen)
+    
     #print(len(l))
-    for x in range(0,len(l)-1,20):
-        for y in range(0,16):
-            #print (x+y,x+y+n)
-            #print(l[x+y:x+y+n])
-            if lprod(l[x+y:x+y+n])>maxprod:
+    for x in range(0,len(l)-1,rowlen):
+        for y in range(0,rowlen):
+##            #print (x+y,x+y+n)
+##            #print(l[x+y:x+y+n])
+            if y<=17 and lprod(l[x+y:x+y+n])>maxprod:
                 maxprod=lprod(l[x+y:x+y+n])
-        
+                print(l[x+y:x+y+n])
+            if x<=17 and lprod(l[x+y:(x+y)+n*20:20])>maxprod:
+                maxprod=lprod(l[x+y:(x+y)+n*20:20])
+                print(l[x+y:(x+y)+n*20:20])
+            if x<=320 and y<17 and lprod(l[x+y:(x+y)+(n-1)*rowlen:rowlen+1]) > maxprod:
+                maxprod=lprod(l[x+y:(x+y)+n*rowlen:rowlen+1])
+                print(l[x+y:(x+y)+n*rowlen:rowlen+1])
+            if x<=320 and y>=3 and lprod(l[x+y:(x+y)+n*rowlen:rowlen-1]) > maxprod:
+                maxprod=lprod(l[x+y:(x+y)+n*rowlen:rowlen-1])
+                print(l[x+y:(x+y)+(n-1)*rowlen:rowlen-1])       
     print(maxprod)
 euler11()
 
