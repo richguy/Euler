@@ -21,9 +21,8 @@
 ##What is the greatest product of four adjacent numbers
 ##in any direction (up, down, left, right, or diagonally) in the 2020 grid?
 ##
-from functools import reduce
-def lprod(ls):
-    return reduce(lambda x,y:x*y, ls)
+
+
 
 def euler11():
 
@@ -50,27 +49,43 @@ def euler11():
 
     l = [int(e) for e in g.split()]
     n=4
-    maxprod = 0
+    products = []
     rowlen = int(len(l)**.5)
     print (rowlen)
     
     #print(len(l))
     for x in range(0,len(l)-1,rowlen):
         for y in range(0,rowlen):
-##            #print (x+y,x+y+n)
-##            #print(l[x+y:x+y+n])
-            if y<=17 and lprod(l[x+y:x+y+n])>maxprod:
-                maxprod=lprod(l[x+y:x+y+n])
-                print(l[x+y:x+y+n])
-            if x<=17 and lprod(l[x+y:(x+y)+n*20:20])>maxprod:
-                maxprod=lprod(l[x+y:(x+y)+n*20:20])
-                print(l[x+y:(x+y)+n*20:20])
-            if x<=320 and y<17 and lprod(l[x+y:(x+y)+(n-1)*rowlen:rowlen+1]) > maxprod:
-                maxprod=lprod(l[x+y:(x+y)+n*rowlen:rowlen+1])
-                print(l[x+y:(x+y)+n*rowlen:rowlen+1])
-            if x<=320 and y>=3 and lprod(l[x+y:(x+y)+n*rowlen:rowlen-1]) > maxprod:
-                maxprod=lprod(l[x+y:(x+y)+n*rowlen:rowlen-1])
-                print(l[x+y:(x+y)+(n-1)*rowlen:rowlen-1])       
-    print(maxprod)
-euler11()
+            #print (x+y,x+y+n)
+            #print(l[x+y:x+y+n])
+            
+            if y<17:
+                print('horiz',l[x+y:x+y+n])
+                products.append(lprod(l[x+y:x+y+n]))
+                
+            if x<340:
+                products.append(lprod(l[x+y:(x+y)+n*20:20]))
+                print('vert',l[x+y:(x+y)+n*20:20])                
+                
+            if x<=320 and y<17:
+                products.append(lprod(l[x+y:(x+y)+n*rowlen:rowlen+1]))
+                print('tlbr',l[x+y:(x+y)+n*rowlen:rowlen+1])
+                
+            if x<=320 and y>=3:
+                products.append(lprod(l[x+y:(x+y)+n*rowlen:rowlen-1]))
+                print('bltr',l[x+y:(x+y)+(n-1)*rowlen:rowlen-1])
+
+            print(products)
+                
+    return(max(products))
+
+def lprod(ls):
+    accum=1
+    #print(ls)
+    for elem in ls:
+        accum=accum*elem
+    ls=None
+    return accum
+
+print(euler11())
 
