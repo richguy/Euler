@@ -1,0 +1,8 @@
+#Euler15
+
+def euler15(n):
+    for x in range(0,n):
+        for y in range(0,n):
+            print(x,y)
+
+euler15(5)
