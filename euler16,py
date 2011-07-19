@@ -1,0 +1,11 @@
+#euler16
+
+def euler16(n):
+    sumn=0
+    for i in range(0,len(str(2**n))):
+        sumn=sumn+int(str(2**n)[i])
+    return sumn
+
+print(euler16(1000))
+        
+                 
