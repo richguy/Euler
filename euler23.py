@@ -18,10 +18,22 @@ def divisors(n):
 
 
 abnums=[]
+noabsum=[]
 for i in range(1,28125):
-        j,k = divisors(i)
-        if k=='Abundant':
-            abnums.append(i)
+    j,k = divisors(i)
+    if k=='Abundant':
+        abnums.append(i)
 
-print(abnums)
+for j in range(1,28125):
+    check = False
+    for k in abnums:
+        if abnums.count(j-k)>0 :
+            check=True
+            break
+    if check == False:
+        noabsum.append(j)
+    print(j)
+     
+print(sum(noabsum))
+    
             
